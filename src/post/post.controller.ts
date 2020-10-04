@@ -8,9 +8,11 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CreatePostDto, EditPostDto } from './dto';
 import { PostService } from './post.service';
 
+@ApiTags('Post controller')
 @Controller('post')
 export class PostController {
   constructor(private readonly postService: PostService) {}
@@ -22,7 +24,6 @@ export class PostController {
 
   @Get(':id')
   getOne(@Param('id', ParseIntPipe) id: number) {
-    console.log(id);
     return this.postService.getOne(id);
   }
 
@@ -36,7 +37,7 @@ export class PostController {
 
   @Put(':id')
   editOne(@Param('id') id: number, @Body() dto: EditPostDto) {
-    return this.postService.updatetOne(id, dto);
+    return this.postService.editOne(id, dto);
   }
 
   @Delete(':id')
